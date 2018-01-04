@@ -8,8 +8,8 @@ public class Solutions {
 	public class TreeNode {
 		int val;
 		TreeNode left;
-	    TreeNode right;
-	    TreeNode(int x) { val = x; }
+		TreeNode right;
+		TreeNode(int x) { val = x; }
 	}
 	
 	//Used in the merge interval problem.
@@ -22,44 +22,44 @@ public class Solutions {
 	
 	//673. Number of Longest Increasing Subsequence
 	public int findNumberOfLIS(int[] nums) {
-        if (nums == null || nums.length == 0) return 0;
-        int [] longest = new int [nums.length];
-        int [] occurence = new int [nums.length];
-        longest[0] = 1;
-        occurence[0] = 1;
-        for (int i = 1; i < nums.length; i++) {
-            longest[i] = 1;
-            occurence[i] = 1;
-            for (int j = i-1; j >= 0; j--) {
-                if (nums[i] > nums[j]) {
-                    int len = longest[j]+1;
-                    if (len > longest[i]) {
-                        longest[i] = len;
-                        occurence[i] = occurence[j];
-                    } else if (len == longest[i]) {
-                        occurence[i] += occurence[j];    
-                    }
-                }
-            }    
+		if (nums == null || nums.length == 0) return 0;
+		int [] longest = new int [nums.length];
+		int [] occurence = new int [nums.length];
+		longest[0] = 1;
+ 		occurence[0] = 1;
+		for (int i = 1; i < nums.length; i++) {
+			longest[i] = 1;
+			occurence[i] = 1;
+    		for (int j = i-1; j >= 0; j--) {
+            	if (nums[i] > nums[j]) {
+                	int len = longest[j]+1;
+                	if (len > longest[i]) {
+                    	longest[i] = len;
+                    	occurence[i] = occurence[j];
+               		} else if (len == longest[i]) {
+                    	occurence[i] += occurence[j];    
+                	}
+            	}
+        	}    
         }
-        int longSub = 0;
-        int countSub = 0;
-        for (int i = 0; i < longest.length; i++) {
-            if (longest[i] > longSub) {
-                countSub = occurence[i];
-                longSub = longest[i];
-            } else if (longest[i] == longSub) {
-                countSub += occurence[i];
-            }
-        }
-        return countSub;
+   		int longSub = 0;
+		int countSub = 0;
+ 		for (int i = 0; i < longest.length; i++) {
+        	if (longest[i] > longSub) {
+            	countSub = occurence[i];
+            	longSub = longest[i];
+        	} else if (longest[i] == longSub) {
+        		countSub += occurence[i];
+        	}
+    	}
+    	return countSub;
     }
 	
 	//650. 2 Keys Keyboard
 	public int minSteps(int n) {
-        if (n < 2) {
-            return 0;
-        }
+    	if (n < 2) {
+			return 0;
+		}
         int numSteps = 2;
         int chars = 2;
         int lastCopied = 1;
