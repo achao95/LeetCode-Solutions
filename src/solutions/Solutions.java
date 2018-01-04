@@ -119,7 +119,7 @@ public class Solutions {
     }
 	
 	//297. Serialize and Deserialize Binary Tree
-	public String serialize(TreeNode root) {
+    public String serialize(TreeNode root) {
         if (root == null) {
             return "N";
         }
