@@ -12,7 +12,7 @@ public class Solutions {
 	    TreeNode(int x) { val = x; }
 	}
 	
-	//Used in merge interval problem.
+	//Used in the merge interval problem.
 	public class Interval {
 		int start;
 		int end;
