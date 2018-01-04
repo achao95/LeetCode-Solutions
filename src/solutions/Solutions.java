@@ -3,122 +3,24 @@ package solutions;
 import java.util.*;
 
 public class Solutions {
-	
-	//Used for binary tree problems.
-	public class TreeNode {
-		int val;
-		TreeNode left;
-		TreeNode right;
-		TreeNode(int x) { val = x; }
-	}
-	
-	//Used in the merge interval problem.
-	public class Interval {
-		int start;
-		int end;
-		Interval() { start = 0; end = 0; }
-		Interval(int s, int e) { start = s; end = e; }
-	}
-	
-	//673. Number of Longest Increasing Subsequence
-	public int findNumberOfLIS(int[] nums) {
-		if (nums == null || nums.length == 0) return 0;
-		int [] longest = new int [nums.length];
-		int [] occurence = new int [nums.length];
-		longest[0] = 1;
- 		occurence[0] = 1;
-		for (int i = 1; i < nums.length; i++) {
-			longest[i] = 1;
-			occurence[i] = 1;
-    		for (int j = i-1; j >= 0; j--) {
-            	if (nums[i] > nums[j]) {
-                	int len = longest[j]+1;
-                	if (len > longest[i]) {
-                    	longest[i] = len;
-                    	occurence[i] = occurence[j];
-               		} else if (len == longest[i]) {
-                    	occurence[i] += occurence[j];    
-                	}
-            	}
-        	}    
-        }
-   		int longSub = 0;
-		int countSub = 0;
- 		for (int i = 0; i < longest.length; i++) {
-        	if (longest[i] > longSub) {
-            	countSub = occurence[i];
-            	longSub = longest[i];
-        	} else if (longest[i] == longSub) {
-        		countSub += occurence[i];
-        	}
-    	}
-    	return countSub;
+    
+    //Used for binary tree problems.
+    public class TreeNode {
+        int val;
+        TreeNode left;
+        TreeNode right;
+        TreeNode(int x) { val = x; }
     }
-	
-	//650. 2 Keys Keyboard
-	public int minSteps(int n) {
-    	if (n < 2) {
-			return 0;
-		}
-        int numSteps = 2;
-        int chars = 2;
-        int lastCopied = 1;
-        while (n > chars) {
-            if (n%chars == 0) {
-                lastCopied = chars;
-                numSteps++;
-            }
-            chars+=lastCopied;
-            numSteps++;
-        }
-        return numSteps;
+    
+    //Used in the merge interval problem.
+    public class Interval {
+        int start;
+        int end;
+        Interval() { start = 0; end = 0; }
+        Interval(int s, int e) { start = s; end = e; }
     }
-	
-	//239. Sliding Window Maximum
-	public int[] maxSlidingWindow(int[] nums, int k) {
-        if (nums == null || nums.length == 0) return new int[0]; 
-        List<Integer> list = new ArrayList<>();
-        Deque<Integer> deque = new LinkedList<Integer>();
-        int currMax = 0;
-        deque.add(0);
-        for (int i = 1; i < k; i++) {
-            deque.add(i);
-            if (nums[i] >= nums[currMax]) {
-                currMax = i;
-            }
-        }
-        list.add(nums[currMax]);
-        for (int i = k; i < nums.length; i++) {
-            if (deque.peekFirst() == i-k) {
-                deque.pollFirst();
-            }
-            while (!deque.isEmpty() && nums[deque.peekLast()] < nums[i]) {
-                int val = deque.pollLast();
-                if (val == currMax) {
-                    currMax = i;
-                }
-            }
-            deque.add(i);
-            if (currMax == i-k) {
-                currMax = deque.peekFirst();
-                for (Integer ele : deque) {
-                    if (nums[ele] >= nums[currMax]) {
-                        currMax = ele;
-                    }
-                }
-            }
-            list.add(nums[currMax]);
-        }
-        int i = 0;
-        int [] ret = new int[list.size()];
-        for (Integer ele : list) {
-            ret[i] = ele;
-            i+=1;
-        }
-        return ret;
-    }
-	
-	//297. Serialize and Deserialize Binary Tree
+    
+    //297. Serialize and Deserialize Binary Tree
     public String serialize(TreeNode root) {
         if (root == null) {
             return "N";
